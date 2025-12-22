@@ -1,0 +1,85 @@
+# EC2 CPU Monitoring & Auto Scaling (Free Tier Safe)
+
+## Project Overview
+This project demonstrates how to monitor EC2 CPU utilization using CloudWatch and design Auto Scaling logic based on CPU usage, while keeping everything within AWS Free Tier limits.
+
+## Objective
+- Monitor EC2 CPU utilization
+- Detect high CPU automatically
+- Evaluate Auto Scaling decisions
+- Avoid unnecessary AWS costs
+
+## AWS Services Used
+- EC2
+- CloudWatch
+- SNS
+- EC2 Auto Scalin
+
+## Why This Project Matters
+- Reflects real industry monitoring practices
+- Shows understanding of CPU vs storage decisions
+- Demonstrates cost-aware cloud design
+=================================================================================================
+STEPS
+# Step-by-Step Implementation
+
+## Step 1: Launch EC2 Instance
+- Instance type: t2.micro (Free Tier)
+- OS: Amazon Linux
+- Purpose: Host workload and generate CPU metrics
+
+---
+
+## Step 2: Create SNS Topic
+- Created an SNS topic for email alerts
+- Subscribed email and confirmed subscription
+- Purpose: Notify when CPU crosses threshold
+
+---
+
+## Step 3: Create CloudWatch Alarm
+- Metric: EC2 CPUUtilization
+- Threshold: CPU > 40%
+- Action: Send notification to SNS
+- Purpose: Convert CPU data into alerts
+
+---
+
+## Step 4: Create Launch Template
+- Defined AMI, instance type, and security group
+- Purpose: Blueprint for Auto Scaling instances
+
+Why needed:
+- Auto Scaling requires a standard configuration
+- Ensures consistency during scaling
+
+---
+
+## Step 5: Create Auto Scaling Group (Free Tier Safe)
+- Min capacity: 1
+- Desired capacity: 1
+- Max capacity: 1
+- No Load Balancer attached
+
+Why needed:
+- Manages EC2 instance count
+- Evaluates scaling decisions automatically
+- Capacity limits prevent extra cost
+
+---
+
+## Step 6: Attach CPU-Based Scaling Policy
+- Policy type: Target Tracking
+- Metric: Average CPU Utilization
+- Target value: 40%
+
+Why needed:
+- Defines WHEN Auto Scaling should react
+- Separates monitoring from decision logic
+
+---
+
+## Step 7: Test CPU Increase
+Command used:
+
+
