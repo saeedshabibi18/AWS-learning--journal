@@ -1,0 +1,3 @@
+importance commands :
+Remove a directory with files inside (MOST COMMON):
+rm -r directory_name
