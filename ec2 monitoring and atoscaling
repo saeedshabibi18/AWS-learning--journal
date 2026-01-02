@@ -43,7 +43,7 @@ STEPS
 - Action: Send notification to SNS
 - Purpose: Convert CPU data into alerts
 
----
+----------------------------------------------------------------------------
 
 ## Step 4: Create Launch Template
 - Defined AMI, instance type, and security group
