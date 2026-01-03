@@ -1,3 +1,6 @@
 importance commands :
 Remove a directory with files inside (MOST COMMON):
 rm -r directory_name
+
+to instal docker on amazon :
+sudo yum install docker -y 
