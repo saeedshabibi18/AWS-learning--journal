@@ -1,0 +1,100 @@
+# 🚀 Docker Swarm Multi-Node Example on AWS EC2
+
+This repository contains the necessary files, configuration, 
+and steps to create a **Docker Swarm cluster** with two AWS EC2 instances (Manager + Worker) 
+and deploy an **nginx service** with multiple replicas.
+
+---
+
+## 🧠 What This Project Does
+
+🔹 Creates a Swarm cluster with:
+- **1 Manager node**
+- **1 Worker node**
+
+🔹 Deploys a service:
+- **nginx**
+- **Replicated containers**
+- **Accessible via port 80**
+
+---
+
+Services run across both nodes with automatic workload distribution.
+
+---
+
+## 🧰 Prerequisites
+
+✔ Two AWS EC2 instances  
+✔ Amazon Linux 2  
+✔ Docker installed  
+✔ Security Group Rules (Inbound):
+
+| Port | Protocol | Purpose |
+|------|----------|---------|
+| 22 | TCP | SSH access |
+| 80 | TCP | HTTP (Nginx) |
+| 2377 | TCP | Swarm cluster management |
+| 7946 | TCP/UDP | Node communication |
+| 4789 | UDP | Overlay network |
+
+---
+
+## 🛠️ Files
+
+📄 `docker-compose.yml`
+
+```yaml
+version: "3.8"
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+=====================================
+## STEP :
+
+1. Install Docker (Manager & Worker)
+sudo yum update -y
+sudo yum install docker -y
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker ec2-user
+newgrp docker
+
+2. Initialize Swarm on Manager
+docker swarm init
+Copy the join token command output.
+
+3. Join the Worker Node
+Run the provided join command on the worker instance:
+docker swarm join --token SWMTKN-1-xxxxx <MA
+
+4. run created yml file 
+docker stack deploy -c docker-compose.yml webstack
+webstack is service name
+
+5. Check Service Status (Manager)
+docker stack ls
+docker service ls
+docker service ps webstack_web
+
+6. check on worker node 
+docker ps 
+
+=======================================
+## COMMON ISSUE
+📌 Troubleshooting
+❗ SSH Connection Issues
+Check Security Group rules
+Confirm correct key pair and username
+Ensure instance is running
+
+❗ Worker Join Errors
+Make sure Swarm ports are open
+Manager’s private IP must be reachable
