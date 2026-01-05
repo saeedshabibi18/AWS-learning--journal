@@ -1,0 +1,121 @@
+Flask Web App Deployment on AWS EC2 (Using Docker)
+📌 Project Summary
+
+I created a simple website using Python Flask.
+The website takes input from the user and saves it into a file.
+I deployed this website on an AWS EC2 instance using Docker.
+
+🛠 Tools Used
+
+AWS EC2 (Amazon Linux)
+
+Python 3
+
+Flask
+
+Docker
+
+EC2 Instance Connect
+
+📂 Project Files
+flask-docker/
+├── app.py
+├── requirements.txt
+├── Dockerfile
+
+🚀 What My Website Does
+
+Opens in a browser using EC2 public IP
+
+Shows a simple form
+
+Takes user input
+
+Saves input into a file (tasks.txt)
+
+Shows success message
+
+⚙️ How I Deployed the Project (Steps)
+1️⃣ Launched EC2 Instance
+
+OS: Amazon Linux
+
+Connected using EC2 Instance Connect
+
+2️⃣ Installed Docker
+sudo yum update -y
+sudo yum install docker -y
+sudo systemctl start docker
+sudo systemctl enable docker
+
+3️⃣ Created Flask App
+
+Wrote app.py using Flask
+#code --:
+
+from flask import Flask, request, render_template_string
+from datetime import datetime
+
+app = Flask(__name__)
+
+HTML = """
+<h2>Task Manager (Docker)</h2>
+<form method="POST">
+  <input type="text" name="task" required>
+  <button type="submit">Save</button>
+</form>
+<p>{{ message }}</p>
+"""
+
+@app.route("/", methods=["GET","POST"])
+def home():
+    message = ""
+    if request.method == "POST":
+        task = request.form.get("task")
+        time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open("tasks.txt","a") as f:
+            f.write(f"[{time}] {task}\n")
+        message = "Task saved!"
+    return render_template_string(HTML, message=message)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+
+website code 
+App runs on port 5000
+
+4️⃣ Created requirements.txt
+flask
+here we tell which Dependency we have to use
+
+Purpose:
+To tell Docker which Python libraries are needed.
+
+5️⃣ Created Dockerfile
+
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY requirement.txt .
+RUN pip install --no-cache-dir -r requirement.txt
+
+COPY app.py .
+
+EXPOSE 5000
+
+CMD ["python", "app.py"]
+
+   Dockerfile is used to control container and install dependency .
+Purpose:
+To tell Docker how to build the application container.
+
+6️⃣ Built Docker Image
+docker build -t flask-task-app .
+here build is used beacuse it search for Dockerfile and run it
+
+7️⃣ Ran Docker Container
+docker run -d -p 5000:5000 --name flask_app flask-task-app
+
+8️⃣ Opened Website in Browser
+http://<EC2_PUBLIC_IP>:5000
