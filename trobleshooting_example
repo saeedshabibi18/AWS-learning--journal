@@ -1,0 +1,118 @@
+# 🚀 AWS Console Troubleshooting: Credential Validation & API Error Fix
+
+## 📌 Problem Statement
+
+While accessing AWS EC2 Console, I encountered the following issues:
+
+- ❌ API Error
+- ❌ "AWS was not able to validate the provided access credentials"
+- ❌ Console not loading properly
+
+Even after:
+- Re-login
+- Changing browser
+- Using different network
+
+The issue persisted.
+
+---
+
+## 🔍 Root Cause Analysis
+
+After systematic troubleshooting, I identified:
+
+👉 The problem was caused by *Proxy Configuration (Use Setup Script enabled)* in Windows network settings.
+
+This proxy was:
+- Interfering with AWS secure authentication
+- Modifying API requests
+- Causing credential validation failure
+
+---
+
+## 🛠️ Troubleshooting Steps
+
+### Step 1: Verified Account & AWS Status
+- Checked AWS account functionality on another laptop ✅
+- Confirmed issue was device-specific
+
+---
+
+### Step 2: Eliminated Common Causes
+- Cleared browser cache
+- Used Incognito mode
+- Switched networks
+- Flushed DNS (ipconfig /flushdns)
+
+---
+
+### Step 3: Identified Root Cause
+- Found "Use setup script" enabled in proxy settings
+
+---
+
+### Step 4: Fix Applied
+
+Disabled proxy settings:
+
+
+
+
+Turned OFF:
+- ❌ Use setup script  
+- ❌ Use proxy server  
+
+Turned ON:
+- ✅ Automatically detect settings  
+
+---
+
+## ✅ Final Result
+
+- AWS Console working properly ✔️  
+- EC2 dashboard loading ✔️  
+- No credential/API errors ✔️  
+
+---
+
+## 💡 Key Learnings
+
+- Proxy settings can break cloud authentication
+- Always compare behavior across devices
+- System-level issues can mimic cloud/API failures
+- Structured troubleshooting is critical
+
+---
+
+## 🧠 Skills Demonstrated
+
+- Cloud Troubleshooting (AWS)
+- Network Debugging
+- Root Cause Analysis
+- System Configuration Debugging
+
+---
+
+## 💼 Real-World Relevance
+
+In enterprise environments:
+- Proxy/VPN misconfigurations often cause cloud access issues
+- Engineers must diagnose network-level problems quickly
+
+---
+
+## 🎯 Conclusion
+
+This issue was resolved by identifying a system-level proxy misconfiguration that interfered with AWS authentication mechanisms.
+
+---
+
+## 📸 Screenshots
+
+(Add your screenshots here)
+
+---
+
+## 🔗 Author
+
+Saeed Shabibi
