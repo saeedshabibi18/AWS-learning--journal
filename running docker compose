@@ -1,0 +1,138 @@
+📌 Project Overview
+
+This repository demonstrates the basic usage of Docker Compose to run multiple containers together using official Docker images.
+
+The setup uses:
+
+Python container
+
+MySQL container
+
+Docker Compose to orchestrate both
+
+This project is created for learning, practice, and interview preparation, especially on Amazon EC2 (Amazon Linux).
+=========================================================
+🧱 Technologies Used
+
+Docker
+
+Docker Compose
+
+Python (official image)
+
+MySQL (official image)
+
+AWS EC2 (Amazon Linux)
+
+=========================================================
+📂 Project Structure
+compose/
+├── docker-compose.yml
+└── README.md
+
+=========================================================
+📝 docker-compose.yml
+services:
+  python_app:
+    image: python:3.11
+    container_name: python_container
+    command: python -c "print('Python container running')"
+
+  mysql_db:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+=========================================================
+▶ How to Run This Project (Amazon EC2)
+1️⃣ Install Docker
+sudo yum install docker -y
+sudo systemctl start docker
+sudo systemctl enable docker
+
+2️⃣ Install Docker Compose
+sudo curl -L https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64 \
+-o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+
+Verify:
+
+docker-compose --version
+
+3️⃣ Run Docker Compose
+cd compose
+sudo docker-compose up
+
+
+Expected output:
+
+Python container running
+
+4️⃣ Check Running Containers
+docker ps
+
+
+You should see:
+
+python_container
+
+mysql_container
+
+5️⃣ Stop & Remove Containers
+sudo docker-compose down
+
+=========================================================
+
+🧠 Key Concepts Learned
+
+Docker Compose manages multiple containers
+
+Uses service names instead of IP addresses
+
+Automatically creates a default Docker network
+
+One YAML file controls the entire application
+
+⚠️ Common Issues & Fixes
+❌ dockercompose: command not found
+
+✔ Use:
+
+docker-compose up
+
+❌ no configuration file provided
+
+✔ File name must be:
+
+docker-compose.yml
+
+❌ Permission denied
+
+✔ Fix:
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+🔄 Useful Commands
+docker-compose up        # Start services
+docker-compose up -d     # Start in background
+docker-compose down      # Stop & clean
+docker ps                # List running containers
+
+⭐ Interview Question
+
+Q: What is Docker Compose used for?
+A: Docker Compose is used to define and run multi-container Docker applications using a single YAML file.
+
+🏭 Industry Use Case
+
+Local development environments
+
+Microservices testing
+
+CI/CD pipelines
+
+Internship & student projects on AWS EC2
+

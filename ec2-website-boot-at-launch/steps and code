@@ -1,0 +1,30 @@
+## Step 1: Launch EC2 Instance
+- AMI: Amazon Linux
+- Instance type: t2.micro
+- Allow HTTP (80)
+- Allow SSH (22) (optional)
+
+## Step 2: Add User Data Script
+- Go to Advanced details
+- Paste boot script in User Data section
+===========================================================================================================
+                    #!/bin/bash
+                    yum update -y
+                    yum install httpd -y
+                    systemctl start httpd
+                    systemctl enable httpd
+
+                    echo "<h1>Website Booted Automatically on EC2</h1>" > /var/www/html/index.html
+============================================================================================================
+
+## Step 3: Launch Instance
+- Start the instance
+- Wait 2–3 minutes for boot process
+
+## Step 4: Access Website
+- Copy Public IPv4 address
+- Open browser:
+  http://<public-ip>
+
+## Step 5: Verify
+- Website loads without manual installation
