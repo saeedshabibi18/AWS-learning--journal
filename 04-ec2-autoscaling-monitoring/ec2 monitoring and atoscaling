@@ -3,6 +3,7 @@
 ## Project Overview
 This project demonstrates how to monitor EC2 CPU utilization using CloudWatch and design Auto Scaling logic based on CPU usage, while keeping everything within AWS Free Tier limits.
 
+
 ## Objective
 - Monitor EC2 CPU utilization
 - Detect high CPU automatically
@@ -30,6 +31,8 @@ STEPS
 
 ---
 
+
+
 ## Step 2: Create SNS Topic
 - Created an SNS topic for email alerts
 - Subscribed email and confirmed subscription
@@ -52,6 +55,7 @@ STEPS
 Why needed:
 - Auto Scaling requires a standard configuration
 - Ensures consistency during scaling
+
 
 ---
 
